@@ -20,7 +20,9 @@ export default function SearchUser({ users }) {
         onChange={(e) => setSearch(e.target.value)}
         className={styles.input}
       />
-
+     {filtered.length === 0 && (
+       <p className={styles.empty}>User tidak ditemukan</p>
+      )}
       <div className={styles.grid}>
         {filtered.map((user) => (
           <Link
