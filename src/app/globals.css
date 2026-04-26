@@ -1,0 +1,26 @@
+:root {
+  --bg: white;
+  --card: #ffffff;
+  --text: #111827;
+  --border: #e5e7eb;
+}
+
+.dark {
+  --bg: #020617;
+  --card: #0f172a;
+  --text: #e2e8f0;
+  --border: #1e293b;
+}
+
+body {
+  /* background: red !important; */
+  background: var(--bg);
+  color: var(--text);
+   transition: background 0.3s ease, color 0.3s ease;
+
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
