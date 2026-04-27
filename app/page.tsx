@@ -25,15 +25,24 @@ export default function Home() {
       },
       body: JSON.stringify({ title }),
     });
-
     const newNote = await res.json();
-
     setNotes((prev) => [...prev, newNote]);
     setTitle("");
   };
+    const handleDelete = async (id: number) => {
+    await fetch("/api/notes", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+    });
+    setNotes((prev) => prev.filter((note) => note.id !== id));
+    };
+
 
     return (
-     <div className={styles.container}>
+    <div className={styles.container}>
     <div className={styles.card}>
       <h1 className={styles.title}>Notes App</h1>
 
@@ -52,9 +61,12 @@ export default function Home() {
 
       <ul className={styles.list}>
         {notes.map((note) => (
-          <li key={note.id} className={styles.item}>
-            {note.title}
-          </li>
+      <li key={note.id} className={styles.item}>
+       <span>{note.title}</span>
+        <button className={styles.deleteBtn} onClick={() => handleDelete(note.id)}>
+          ❌
+        </button>
+      </li>
         ))}
       </ul>
     </div>
