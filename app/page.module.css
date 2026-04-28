@@ -22,15 +22,19 @@
   display: flex;
   gap: 8px;
   margin-bottom: 16px;
+  width: 100%;
+
 }
 
 .input {
   flex: 1;
+  width: 100%;
   padding: 10px;
   border-radius: 8px;
   background: var(--card);
   color: var(--text);
   border: 1px solid var(--border);
+
   
 }
 
@@ -60,6 +64,22 @@
   opacity: 1;
   transform: scale(1.1);
 }
+.editInput {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.actionBtn { 
+  margin-left: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.actionBtn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
 .item {
   display: flex;
   justify-content: space-between;
@@ -70,9 +90,15 @@
   margin-bottom: 8px;
   border: 1px solid var(--border);
   background: var(--card);
-
+  width: 100%;
   color: var(--text);
   transition: background 0.2s ease, transform 0.2s ease;
+}
+.list {
+  list-style: none;
+  padding: 0;   /* 🔥 ini penting */
+  margin: 0;
+  width: 100%;
 }
 
 .item:hover {
