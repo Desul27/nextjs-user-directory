@@ -17,18 +17,11 @@ export default function Home() {
 }, []);
 
 useEffect(() => {
-  const saved = localStorage.getItem("notes");
-  if (saved) {
-    setNotes(JSON.parse(saved));
-  }
-}, []);
-useEffect(() => {
-  const saved = localStorage.getItem("notes");
-  if (saved) {
-    setNotes(JSON.parse(saved));
-  }
-  setIsLoaded(true); // 🔥 tandai sudah load
-}, []);
+  fetch("/api/notes")
+    .then((res) => res.json())
+    .then((data) => setNotes(data));
+}, []);   
+
 useEffect(() => {
   if (mounted && isLoaded) {
     localStorage.setItem("notes", JSON.stringify(notes));
