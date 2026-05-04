@@ -109,3 +109,9 @@
 .dark .item:hover {
   background: rgba(255,255,255,0.05);
 }
+
+.empty {
+  text-align: center;
+  color: var(--subtext);
+  margin-top: 16px;
+}

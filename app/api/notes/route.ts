@@ -9,15 +9,20 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const note = await prisma.note.create({
-    data: {
-      title: body.title,
-    },
-  });
+    const note = await prisma.note.create({
+      data: { title: body.title },
+    });
 
-  return Response.json(note);
+    return Response.json(note);
+  } catch (error) {
+    return Response.json(
+      { error: "Gagal menambah note" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function DELETE(req: Request) {
