@@ -4,7 +4,7 @@ A modern full-stack notes application built with Next.js App Router, featuring c
 
 🚀 Live Demo
 
-👉 https://nextjs-user-directory.vercel.app/
+👉 https://nextjs-notes-app-seven.vercel.app/
 
 ✨ Features
 📝 Create, Read, Update, Delete (CRUD) Notes
