@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./NoteItem.module.css";
+import { useEffect, useRef } from "react";
+
 
 type Note = {
   id: number;
@@ -17,16 +19,35 @@ type NoteItemProps = {
 };
 
 const NoteItem: React.FC<NoteItemProps> = ({ note, editingId, editText, setEditText, handleEdit, handleSave, handleDelete }) => {
+  const editRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (editingId === note.id) {
+      editRef.current?.focus();
+  }
+}, [editingId, note.id]);
+
   return (
     <li className={styles.item}>
       {editingId === note.id ? (
         <>
           <input
+          ref={editRef}
             className={styles.editInput}
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
-          />
-          <button className={styles.actionBtn}  onClick={() => handleSave(note.id)}>💾</button>
+            onKeyDown={(e) => {
+           if (e.key === "Enter" && editText.trim()) {
+             handleSave(note.id);
+  }
+}}
+         
+         />
+          <button 
+          className={styles.actionBtn} 
+          disabled={!editText.trim()}
+          onClick={() => handleSave(note.id)}>
+            💾
+            </button>
         </>
       ) : (
         <>

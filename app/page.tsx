@@ -1,6 +1,7 @@
 "use client";
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState} from "react";
+
 import NoteItem from "./components/NoteItem"; // Import
 
 type Note = {
@@ -15,23 +16,34 @@ export default function Home() {
   const [editText, setEditText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
   const fetchNotes = async () => {
-    setLoading(true);
+     setLoading(true);  
     try {
       const res = await fetch("/api/notes");
       const data = await res.json();
       setNotes(data);
+      
     } catch (err) {
       setError("Gagal fetch notes");
     } finally {
       setLoading(false);
+  
     }
   };
 
   fetchNotes();
 }, []);  
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    inputRef.current?.focus();
+  }, 0);
+
+  return () => clearTimeout(timer);
+}, []);
 
   const handleAdd = async () => {
     if (!title) return;
@@ -45,6 +57,7 @@ export default function Home() {
     const newNote = await res.json();
     setNotes((prev) => [...prev, newNote]);
     setTitle("");
+    inputRef.current?.focus();
   };
 
   const handleDelete = async (id: number) => {
@@ -56,6 +69,7 @@ export default function Home() {
       body: JSON.stringify({ id }),
     });
     setNotes((prev) => prev.filter((note) => note.id !== id));
+    inputRef.current?.focus();
   };
 
   const handleEdit = (note: Note) => {
@@ -76,22 +90,30 @@ export default function Home() {
     );
     setEditingId(null);
     setEditText("");
+    inputRef.current?.focus();
   };
 
-  if (loading) return <p>Loading...</p>;
+
   if (error) return <p>{error}</p>;
  
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
+        {loading && <p>Loading...</p>}
         <h1 className={styles.title}>Notes App</h1>
         <div className={styles.inputGroup}>
           <input
+            ref={inputRef}
             className={styles.input}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Tulis note..."
+            onKeyDown={(e) => {
+            if (e.key === "Enter" && title.trim()) {
+            handleAdd();
+          }
+        }}
           />
           <button className={styles.button} disabled={!title} onClick={handleAdd}>
             Tambah
