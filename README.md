@@ -4,7 +4,7 @@ A modern full-stack notes application built with Next.js App Router, featuring c
 
 🚀 Live Demo
 
-👉 https://your-app.vercel.app
+👉 https://nextjs-user-directory.vercel.app/
 
 ✨ Features
 📝 Create, Read, Update, Delete (CRUD) Notes
@@ -31,7 +31,7 @@ lib/
  └── prisma.ts        # Prisma client
 ⚙️ Getting Started
 1. Clone repo
-git clone https://github.com/USERNAME/nextjs-notes-app.git
+git clone https://github.com/Desul27/nextjs-notes-app.git
 cd nextjs-notes-app
 2. Install dependencies
 npm install
